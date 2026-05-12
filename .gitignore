@@ -1,0 +1,94 @@
+# ================================================================
+# 构建产物
+# ================================================================
+# qmake 生成
+Makefile
+Makefile.Debug
+Makefile.Release
+.qmake.stash
+object_script.*
+
+# MSBuild / Visual Studio 中间文件
+*.obj
+*.pdb
+*.ilk
+*.idb
+*.exp
+*.log
+*.tlog
+*.recipe
+*.vcxproj.FileListAbsolute.txt
+*.CppClean.log
+
+# 链接输出（会由 Qt/MSVC 生成到根目录或子目录）
+Anode.exe
+Anode.ilk
+Anode.pdb
+
+# 构建目录
+build/
+debug/
+release/
+
+# moc/uic/rcc 生成
+moc_*.cpp
+moc_*.h
+moc_predefs.h
+ui_*.h
+qrc_*.cpp
+*_automoc.cpp
+
+# ================================================================
+# 根目录被 QMAKE_POST_LINK 复制的运行时 DLL
+# （源头在 lib/ 和 bin/，根目录副本不纳管）
+# ================================================================
+/halcon.dll
+/halconcpp.dll
+/PhoXi_API.dll
+/SICK_3DPlatform_x64_331.dll
+/SICK_3DPlatform_x64_331d.dll
+/ButterflyS7.dll
+/msvcp140*.dll
+/vcruntime140*.dll
+
+# ================================================================
+# IDE / 工具缓存
+# ================================================================
+# Qt Creator
+*.pro.user
+*.pro.user.*
+.qtc_clangd/
+
+# Visual Studio
+*.vcxproj.user
+.vs/
+*.qtvscr
+
+# VS Code
+.vscode/
+
+# CodeBuddy / 其他 AI 工具缓存
+.codebuddy/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ================================================================
+# 运行时产物（应用启动后生成）
+# ================================================================
+logs/
+data/
+*.ply.tmp
+
+# ================================================================
+# 备份 / 临时
+# ================================================================
+*.bak
+*.backup
+*.old
+*.orig
+*.tmp
+*_backup.*
+temp_*

@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CameraControlDialog</class>
+ <widget class="QDialog" name="CameraControlDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>PhoXi相机控制面板</string>
+  </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <item>
+    <widget class="QGroupBox" name="camera1Group">
+     <property name="title">
+      <string>相机1 (正面监控)</string>
+     </property>
+     <layout class="QVBoxLayout" name="camera1Layout">
+      <item>
+       <layout class="QHBoxLayout" name="camera1InfoLayout">
+        <item>
+         <widget class="QLabel" name="camera1StatusLabel">
+          <property name="text">
+           <string>状态: 未连接</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="camera1InfoLabel">
+          <property name="text">
+           <string>相机ID: -</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="camera1Spacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="camera1ButtonLayout">
+        <item>
+         <widget class="QPushButton" name="camera1ConnectBtn">
+          <property name="text">
+           <string>连接</string>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="camera1DisconnectBtn">
+          <property name="text">
+           <string>断开</string>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="camera1StartCaptureBtn">
+          <property name="text">
+           <string>开始采集</string>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="camera1StopCaptureBtn">
+          <property name="text">
+           <string>停止采集</string>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="camera1TriggerBtn">
+          <property name="text">
+           <string>触发单帧</string>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="camera1ButtonSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="camera2Group">
+     <property name="title">
+      <string>相机2 (侧面监控)</string>
+     </property>
+     <layout class="QVBoxLayout" name="camera2Layout">
+      <item>
+       <layout class="QHBoxLayout" name="camera2InfoLayout">
+        <item>
+         <widget class="QLabel" name="camera2StatusLabel">
+          <property name="text">
+           <string>状态: 未连接</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="camera2InfoLabel">
+          <property name="text">
+           <string>相机ID: -</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="camera2Spacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="camera2ButtonLayout">
+        <item>
+         <widget class="QPushButton" name="camera2ConnectBtn">
+          <property name="text">
+           <string>连接</string>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="camera2DisconnectBtn">
+          <property name="text">
+           <string>断开</string>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="camera2StartCaptureBtn">
+          <property name="text">
+           <string>开始采集</string>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="camera2StopCaptureBtn">
+          <property name="text">
+           <string>停止采集</string>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="camera2TriggerBtn">
+          <property name="text">
+           <string>触发单帧</string>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="camera2ButtonSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="settingsGroup">
+     <property name="title">
+      <string>相机设置</string>
+     </property>
+     <layout class="QGridLayout" name="settingsLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="timeoutLabel">
+        <property name="text">
+         <string>采集超时(ms):</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="timeoutSpin">
+        <property name="minimum">
+         <number>100</number>
+        </property>
+        <property name="maximum">
+         <number>10000</number>
+        </property>
+        <property name="value">
+         <number>1000</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="resolutionLabel">
+        <property name="text">
+         <string>分辨率:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QComboBox" name="resolutionCombo">
+        <item>
+         <property name="text">
+          <string>低 (320x240)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>中 (640x480)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>高 (1280x720)</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QPushButton" name="applySettingsBtn">
+        <property name="text">
+         <string>应用设置</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <spacer name="settingsSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="logGroup">
+     <property name="title">
+      <string>日志</string>
+     </property>
+     <layout class="QVBoxLayout" name="logLayout">
+      <item>
+       <widget class="QTextEdit" name="logText">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="maximumHeight">
+         <number>150</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="logButtonLayout">
+        <item>
+         <widget class="QPushButton" name="clearLogBtn">
+          <property name="text">
+           <string>清除日志</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="logButtonSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="bottomButtonLayout">
+     <item>
+      <spacer name="bottomSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="closeBtn">
+       <property name="text">
+        <string>关闭</string>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>30</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+
+
+

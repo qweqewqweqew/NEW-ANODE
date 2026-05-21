@@ -703,6 +703,14 @@ void BatchFinePositioningManager::reportBatchToWms()
     emit batchPositioningCompleted(scanResult);
 }
 
+ApiTypes::Point3D BatchFinePositioningManager::getPhotoPose(int blockIndex) const
+{
+    if (blockIndex >= 0 && blockIndex < m_photoPoses.size()) {
+        return m_photoPoses[blockIndex];
+    }
+    return ApiTypes::Point3D{};
+}
+
 int BatchFinePositioningManager::getCompletedCount() const
 {
     int count = 0;

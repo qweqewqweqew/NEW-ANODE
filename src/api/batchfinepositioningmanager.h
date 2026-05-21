@@ -142,6 +142,13 @@ public:
     bool isRunning() const { return m_isRunning; }
 
     /**
+     * @brief 获取指定铜垛的拍照位坐标
+     * @param blockIndex 铜垛索引
+     * @return 拍照位坐标，索引无效时返回空坐标
+     */
+    ApiTypes::Point3D getPhotoPose(int blockIndex) const;
+
+    /**
      * @brief 设置精定位最大重试次数（AlignMax）
      */
     void setAlignMax(int maxRetry) { m_alignMax = qMax(1, maxRetry); }

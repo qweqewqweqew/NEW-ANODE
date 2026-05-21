@@ -440,9 +440,9 @@ private:
     ApiConfig() {
         // 默认值
         m_scanConfig = ApiTypes::ScanConfig::defaultConfig();
-        m_wmsUrl = "http://192.168.5.175:8099";  // ⚠️ 占位值，需后续配置
-        m_wmsReportResultUrl = "http://192.168.5.175:8099/api/OpenApi/ReceiveUnloadPositionData";  // 接口7：上报识别结果
-        m_wmsAdjustPositionUrl = "http://192.168.5.175:8099/api/OpenApi/RequstMoveForActualLocation";  // 接口8：请求精定位移动
+        m_wmsUrl = "http://192.168.3.94:8099";  // WMS服务器地址
+        m_wmsReportResultUrl = "http://192.168.3.94:8099/api/OpenApi/ReceiveUnloadPositionData";  // 接口7：上报识别结果
+        m_wmsAdjustPositionUrl = "http://192.168.3.94:8099/api/OpenApi/RequstMoveForActualLocation";  // 接口8：请求精定位移动
         m_wmsTimeout = 10000;     // 10秒
         m_wmsRetryCount = 3;
         m_serverPort = 8080;

@@ -80,8 +80,8 @@ AnodeAlgorithmWorker::AnodeAlgorithmWorker(QObject *parent)
     m_detectPara.fThCbSelWMax = 5000;
     m_detectPara.fThCbSelPtsMin = 2000;
     m_detectPara.fThCbSelPtsMax = 180000;
-    m_detectPara.fThCbSelZMin = 6500;
-    m_detectPara.fThCbSelZMax = 7200;
+    m_detectPara.fThCbSelZMin = 4900;
+    m_detectPara.fThCbSelZMax = 5600;
 
     // 空间异物
     m_detectPara.bDefectSpaceObj = true;
@@ -111,8 +111,8 @@ AnodeAlgorithmWorker::AnodeAlgorithmWorker(QObject *parent)
     m_detectPara.fThTbSelWMax = 1500;
     m_detectPara.fThTbSelPtsMin = 1000;
     m_detectPara.fThTbSelPtsMax = 17000;
-    m_detectPara.fThTbSelZMin = 5900;
-    m_detectPara.fThTbSelZMax = 6450;
+    m_detectPara.fThTbSelZMin = 4500;
+    m_detectPara.fThTbSelZMax = 5050;
     m_detectPara.fJgTbCloseLenMin = 2000;
     m_detectPara.fJgTbClosePtsMin = 4500;
     m_detectPara.fSampleTb = 80;
@@ -871,8 +871,8 @@ bool AnodeAlgorithmWorker::executeAlgorithm(s_Lidar3d &lidar3d, s_PreADPlateARts
         m_detectPara.fThCbSelWMax = 5000;
         m_detectPara.fThCbSelPtsMin = 2000;
         m_detectPara.fThCbSelPtsMax = 180000;
-        m_detectPara.fThCbSelZMin = 4900+1600;
-        m_detectPara.fThCbSelZMax = 5600+1600;
+        m_detectPara.fThCbSelZMin = 4900/*+1600*/;
+        m_detectPara.fThCbSelZMax = 5600/*+1600*/;
 
         m_detectPara.bDefectSpaceObj = true; // 是否检测空间异物
         m_detectPara.fDefectSpaceThZMin = 900;  // 提取范围限制参数
@@ -899,8 +899,8 @@ bool AnodeAlgorithmWorker::executeAlgorithm(s_Lidar3d &lidar3d, s_PreADPlateARts
         m_detectPara.fThTbSelWMax = 1500;
         m_detectPara.fThTbSelPtsMin = 3500-2500;
         m_detectPara.fThTbSelPtsMax = 17000;
-        m_detectPara.fThTbSelZMin = 4500+1400;
-        m_detectPara.fThTbSelZMax = 5050+1400;
+        m_detectPara.fThTbSelZMin = 4500/*+1400*/;
+        m_detectPara.fThTbSelZMax = 5050/*+1400*/;
         m_detectPara.fJgTbCloseLenMin = 2000; // 判断铜跺接触最小长度
         m_detectPara.fJgTbClosePtsMin = 4500; // 判断铜跺接触最小点数
 
@@ -976,20 +976,20 @@ void AnodeAlgorithmWorker::initializeCalcPreAlignParameters()
 {
     m_calcPreAlignPara.Reset();
     m_calcPreAlignPara.sPoseLidar2Crane.Reset();
-    m_calcPreAlignPara.fSX = 15021.0;
+    m_calcPreAlignPara.fSX = 17721.0;
     m_calcPreAlignPara.fX = 17719.0;
-    m_calcPreAlignPara.fLidar2Gnd = 6700.0;
+    m_calcPreAlignPara.fLidar2Gnd = 6690.0;
 
-    m_calcPreAlignPara.sPoseLidar2Crane.fTransX = 20187.4;
-    m_calcPreAlignPara.sPoseLidar2Crane.fTransY = -443.479;
-    m_calcPreAlignPara.sPoseLidar2Crane.fTransZ = 7258.91;
-    m_calcPreAlignPara.sPoseLidar2Crane.fRotX = 191.076;
-    m_calcPreAlignPara.sPoseLidar2Crane.fRotY = 348.546;
-    m_calcPreAlignPara.sPoseLidar2Crane.fRotZ = 359.312;
+    m_calcPreAlignPara.sPoseLidar2Crane.fTransX = 20022.0;
+    m_calcPreAlignPara.sPoseLidar2Crane.fTransY = 844.565;
+    m_calcPreAlignPara.sPoseLidar2Crane.fTransZ = 23.8086;
+    m_calcPreAlignPara.sPoseLidar2Crane.fRotX = 359.587;
+    m_calcPreAlignPara.sPoseLidar2Crane.fRotY = 359.107;
+    m_calcPreAlignPara.sPoseLidar2Crane.fRotZ = 0.0834795;
 
-    const double mat[12] = {1.01534, -0.016309, 0.109129, 16687.8,
-                            0.00147841, 1.00859, -0.0347664, 1071.03,
-                            0.0149552, -0.0191281, -0.979451, 6605.62};
+    const double mat[12] = {1.003, -0.00146136, -0.0156262, 20022.0,
+                            0.00157407, 1.00309, 0.0072255, 844.565,
+                            0.0156153, -0.00724914, 1.00297, 23.8086};
     for (int i = 0; i < 12; ++i) {
         m_calcPreAlignPara.MatLidar2Crane[i] = mat[i];
     }
@@ -1024,27 +1024,27 @@ void AnodeAlgorithmWorker::initializeAccurateParameters()
     m_calcAccuratePara.fSZ = -2100.0;
     m_calcAccuratePara.fSDeg = 90.0;
 
-    m_calcAccuratePara.fCameraSX = 18000.0;
-    m_calcAccuratePara.fCameraSY = 1500.0;
-    m_calcAccuratePara.fCameraSZ = 3500.0;
+    m_calcAccuratePara.fCameraSX = 20692.0;
+    m_calcAccuratePara.fCameraSY = 2432.0;
+    m_calcAccuratePara.fCameraSZ = 2207.0;
     m_calcAccuratePara.fCameraSDeg = 90.0;
 
-    m_calcAccuratePara.fCameraX = 19558.0;
-    m_calcAccuratePara.fCameraY = 1747.0;
-    m_calcAccuratePara.fCameraZ = 4000.0;
-    m_calcAccuratePara.fCameraDeg = 88.675;
+    m_calcAccuratePara.fCameraX = 0.0;
+    m_calcAccuratePara.fCameraY = 0.0;
+    m_calcAccuratePara.fCameraZ = 0.0;
+    m_calcAccuratePara.fCameraDeg = 0.0;
 
-    m_calcAccuratePara.fOffsetTbX = 0.0;
-    m_calcAccuratePara.fOffsetTbY = 0.0;
-    m_calcAccuratePara.fOffsetTbZ = 0.0;
-    m_calcAccuratePara.fOffsetTbDeg = 0.0;
+    m_calcAccuratePara.fOffsetTbX = 0.1;
+    m_calcAccuratePara.fOffsetTbY = 0.2;
+    m_calcAccuratePara.fOffsetTbZ = 0.3;
+    m_calcAccuratePara.fOffsetTbDeg = -0.01;
 
     m_calcAccuratePara.fLimitRefMaxZ = 500.0;
     m_calcAccuratePara.fLimitRefMaxX = 500.0;
     m_calcAccuratePara.fLimitRefMaxY = 500.0;
     m_calcAccuratePara.fLimitRefMaxDeg = 10.0;
 
-    m_calcAccuratePara.fLimitGripZMin = 0.0;
+    m_calcAccuratePara.fLimitGripZMin = -50.0;
     m_calcAccuratePara.fLimitGripZMax = 7000.0;
     m_calcAccuratePara.fLimitGripXMin = 0.0;
     m_calcAccuratePara.fLimitGripXMax = 50000.0;
@@ -1053,21 +1053,21 @@ void AnodeAlgorithmWorker::initializeAccurateParameters()
     m_calcAccuratePara.fLimitGripDegMin = 60.0;
     m_calcAccuratePara.fLimitGripDegMax = 300.0;
 
-    m_calcAccuratePara.fAccurateX = 15.0;
-    m_calcAccuratePara.fAccurateY = 15.0;
-    m_calcAccuratePara.fAccurateZ = 15.0;
-    m_calcAccuratePara.fAccurateDeg = 1.0;
+    m_calcAccuratePara.fAccurateX = 20.0;
+    m_calcAccuratePara.fAccurateY = 20.0;
+    m_calcAccuratePara.fAccurateZ = 20.0;
+    m_calcAccuratePara.fAccurateDeg = 1.5;
 
+    const double matA[12] = {0.0037917, -0.986526, -0.163562, 802.976,
+                             -0.990748, -0.0258952, 0.13322, -437.525,
+                             -0.13566, 0.161544, -0.977497, 672.82};
+    const double matB[12] = {-0.00692093, 0.992505, 0.122012, -669.506,
+                             0.992222, 0.0219815, -0.122526, 415.139,
+                             -0.12429, 0.120215, -0.984937, 677.28};
     for (int i = 0; i < 12; ++i) {
-        m_calcAccuratePara.MatCameraA2Grip[i] = 0.0;
-        m_calcAccuratePara.MatCameraB2Grip[i] = 0.0;
+        m_calcAccuratePara.MatCameraA2Grip[i] = matA[i];
+        m_calcAccuratePara.MatCameraB2Grip[i] = matB[i];
     }
-    m_calcAccuratePara.MatCameraA2Grip[0] = 1.0;
-    m_calcAccuratePara.MatCameraA2Grip[5] = 1.0;
-    m_calcAccuratePara.MatCameraA2Grip[10] = 1.0;
-    m_calcAccuratePara.MatCameraB2Grip[0] = 1.0;
-    m_calcAccuratePara.MatCameraB2Grip[5] = 1.0;
-    m_calcAccuratePara.MatCameraB2Grip[10] = 1.0;
 }
 
 bool AnodeAlgorithmWorker::loadImage3dFromBasePath(const QString &basePath,

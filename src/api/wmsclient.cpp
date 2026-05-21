@@ -16,7 +16,7 @@
 WmsClient::WmsClient(QObject *parent)
     : QObject(parent)
     , m_networkManager(new QNetworkAccessManager(this))
-    , m_wmsUrl("http://192.168.5.175:8099/api/result")  // 占位值：需要后续配置真实WMS地址
+    , m_wmsUrl("http://192.168.3.94:8099/api/result")  // WMS服务器地址
     , m_timeout(10000)  // 默认10秒超时
     , m_timeoutTimer(new QTimer(this))
     , m_currentReply(nullptr)
@@ -83,7 +83,7 @@ void WmsClient::reportResult(const ApiTypes::ScanResult &result)
         // 兼容旧配置：从基础URL推导
         // 优先使用配置文件中的url字段，而不是m_wmsUrl（可能过时）
         QString baseUrl = config.wmsUrl();
-        if (baseUrl.isEmpty() || baseUrl == "http://192.168.5.175:8099") {
+        if (baseUrl.isEmpty() || baseUrl == "http://192.168.3.94:8099") {
             baseUrl = m_wmsUrl;  // 回退到WmsClient的成员变量
         }
         QUrl url(baseUrl);

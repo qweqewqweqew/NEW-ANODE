@@ -2378,11 +2378,19 @@ void Widget::ensureCameraPositionControls()
         m_cameraZSpin->setVisible(true);
         m_cameraDegSpin->setVisible(true);
 
-        m_cameraXSpin->setValue(13939.0);
-        m_cameraYSpin->setValue(1296.0);
-        m_cameraZSpin->setValue(2258.0);
-        m_cameraDegSpin->setValue(92.0);
-        logMessage(QString("相机拍照位控件已加载: X=%1 Y=%2 Z=%3 Deg=%4")
+        m_cameraXSpin->setValue(0.0);
+        m_cameraYSpin->setValue(0.0);
+        m_cameraZSpin->setValue(0.0);
+        m_cameraDegSpin->setValue(0.0);
+
+        // 正式模式下设为只读，测试模式下可编辑
+        bool isProd = isProductionMode();
+        m_cameraXSpin->setReadOnly(isProd);
+        m_cameraYSpin->setReadOnly(isProd);
+        m_cameraZSpin->setReadOnly(isProd);
+        m_cameraDegSpin->setReadOnly(isProd);
+
+        logMessage(QString("相机拍照位控件已加载（正式模式只读）: X=%1 Y=%2 Z=%3 Deg=%4")
                        .arg(m_cameraXSpin->value())
                        .arg(m_cameraYSpin->value())
                        .arg(m_cameraZSpin->value())
@@ -2392,61 +2400,8 @@ void Widget::ensureCameraPositionControls()
     }
 
     // 若未找到，运行时动态创建一个 GroupBox + 4 个 SpinBox，插入左侧面板顶端
-    logMessage("UI未生成相机拍照位控件，运行时动态创建", "WARNING");
-
-    // 左侧面板布局
-    QVBoxLayout *leftLayout = ui->leftPanelLayout;
-    if (!leftLayout) {
-        logMessage("未找到 leftPanelLayout，无法动态创建相机拍照位控件", "ERROR");
-        return;
-    }
-
-    QGroupBox *group = new QGroupBox(tr("相机拍照位"), ui->leftControlPanel);
-    group->setObjectName("cameraPositionGroup_runtime");
-    QVBoxLayout *vbox = new QVBoxLayout(group);
-    vbox->setSpacing(5);
-
-    auto addRow = [group, vbox](const QString &label, const QString &spinName,
-                                int decimals, double value) -> QDoubleSpinBox* {
-        QHBoxLayout *row = new QHBoxLayout();
-        QLabel *lab = new QLabel(label, group);
-        lab->setMinimumWidth(50);
-        lab->setStyleSheet("color: #ECF0F1; font-size: 11px;");
-        QDoubleSpinBox *spin = new QDoubleSpinBox(group);
-        spin->setObjectName(spinName);
-        spin->setStyleSheet(
-            "QDoubleSpinBox { background-color: #455A64; color: white; "
-            "border: 1px solid #607D8B; border-radius: 3px; padding: 3px; font-size: 11px; }"
-            "QDoubleSpinBox:focus { border: 1px solid #78909C; }");
-        spin->setDecimals(decimals);
-        spin->setMinimum(-999999);
-        spin->setMaximum(999999);
-        spin->setValue(value);
-        row->addWidget(lab);
-        row->addWidget(spin);
-        vbox->addLayout(row);
-        return spin;
-    };
-
-    m_cameraXSpin   = addRow("X:",   "cameraXSpin",   1, 19558.0);
-    m_cameraYSpin   = addRow("Y:",   "cameraYSpin",   1, 1747.0);
-    m_cameraZSpin   = addRow("Z:",   "cameraZSpin",   1, 4000.0);
-    m_cameraDegSpin = addRow("Deg:", "cameraDegSpin", 3, 88.675);
-
-    // 将新建的 group 插到左侧面板顶部（在 operationModeBtn 之前）
-    leftLayout->insertWidget(1, group);
-
-    // 重新绑定信号
-    connect(m_cameraXSpin, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &Widget::onCameraPositionParameterChanged);
-    connect(m_cameraYSpin, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &Widget::onCameraPositionParameterChanged);
-    connect(m_cameraZSpin, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &Widget::onCameraPositionParameterChanged);
-    connect(m_cameraDegSpin, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
-            this, &Widget::onCameraPositionParameterChanged);
-
-    logMessage("相机拍照位控件已在运行时动态创建", "INFO");
+    // [已注释] 不再动态创建控件，默认值应来自 UI 文件（cameraXSpin/Y/Z、cameraDegSpin）
+    logMessage("UI未生成相机拍照位控件，跳过动态创建", "WARNING");
 }
 
 void Widget::onCameraPositionParameterChanged()
@@ -3127,6 +3082,17 @@ void Widget::saveAlgorithmResultToMarkdown(const s_PreADPlateARtsPara &result,
 
 void Widget::onBatchPositioningRequestAdjustPosition(int blockIndex, double x, double y, double z, double deg)
 {
+    // 更新UI显示当前拍照位坐标（天车正移动到该位置）
+    if (m_cameraXSpin && m_cameraYSpin && m_cameraZSpin && m_cameraDegSpin) {
+        m_cameraXSpin->setValue(x);
+        m_cameraYSpin->setValue(y);
+        m_cameraZSpin->setValue(z);
+        m_cameraDegSpin->setValue(deg);
+    }
+
+    // 记录最后一次发给WMS的移动坐标（供精定位算法获取实际拍照位使用）
+    m_lastAdjustPayload.insert(blockIndex, ApiTypes::Point3D{ x, y, z, true, deg, true, QStringLiteral("movePose"), blockIndex });
+
     // 模式检查：测试模式不发送WMS请求
     if (isTestMode()) {
         logMessage(QString(" [测试模式] 跳过WMS移动请求: 铜垛索引=%1, 坐标=(%2, %3, %4, %5) (测试模式不发送WMS)")
@@ -3162,8 +3128,6 @@ void Widget::onBatchPositioningRequestAdjustPosition(int blockIndex, double x, d
     qDebug() << "[WMS] adjustPosition send"
              << "block" << blockIndex
              << "x" << x << "y" << y << "z" << z << "deg" << deg;
-
-    m_lastAdjustPayload.insert(blockIndex, ApiTypes::Point3D{ x, y, z, true, deg, true, QStringLiteral("movePose"), blockIndex });
 
     m_wmsClient->adjustPosition(blockIndex, x, y, z, deg);
 }
@@ -3373,15 +3337,33 @@ void Widget::processNextFinePositioningTask()
 
     logMessage(QString("开始相机精定位(内存): 铜垛索引=%1, 图像数量=%2").arg(blockIndex).arg(images.size()), "INFO");
 
-    // 获取当前相机位姿（从批量精定位管理器获取）
+    // 获取当前相机位姿
+    // 优先使用 m_lastAdjustPayload：它记录的是最后一次发给WMS的实际移动坐标，
+    // 二次调位场景下是调位后的坐标而非原始拍照位
     ApiTypes::Point3D currentCameraPose{0, 0, 0, 0};
-    if (m_batchFinePositioningManager) {
-        // 从批量精定位管理器获取当前拍照位坐标
-        // TODO: 从 BatchFinePositioningManager 获取当前相机位姿
+    if (m_lastAdjustPayload.contains(blockIndex)) {
+        currentCameraPose = m_lastAdjustPayload[blockIndex];
+    } else if (m_batchFinePositioningManager) {
+        currentCameraPose = m_batchFinePositioningManager->getPhotoPose(blockIndex);
     }
 
-    // 调用算法工作线程处理精定位（内存）
+    // 更新UI显示当前拍照位坐标
+    if (m_cameraXSpin && m_cameraYSpin && m_cameraZSpin && m_cameraDegSpin) {
+        m_cameraXSpin->setValue(currentCameraPose.x);
+        m_cameraYSpin->setValue(currentCameraPose.y);
+        m_cameraZSpin->setValue(currentCameraPose.z);
+        m_cameraDegSpin->setValue(currentCameraPose.deg);
+    }
+
+    // 先更新算法的拍照位参数，再调用精定位算法
     if (m_algorithmWorker) {
+        QMetaObject::invokeMethod(m_algorithmWorker, "setCameraPositionParameters",
+                                  Qt::QueuedConnection,
+                                  Q_ARG(double, currentCameraPose.x),
+                                  Q_ARG(double, currentCameraPose.y),
+                                  Q_ARG(double, currentCameraPose.z),
+                                  Q_ARG(double, currentCameraPose.deg));
+
         QMetaObject::invokeMethod(m_algorithmWorker, "processFinePositioningMemory",
                                   Qt::QueuedConnection,
                                   Q_ARG(int, blockIndex),
@@ -3648,6 +3630,15 @@ void Widget::onOperationModeChanged()
     if (m_statusLabel) {
         QString statusText = QString("当前模式: %1").arg(modeName);
         m_statusLabel->setText(statusText);
+    }
+    
+    // 相机拍照位控件：测试模式可编辑，正式模式只读
+    if (m_cameraXSpin && m_cameraYSpin && m_cameraZSpin && m_cameraDegSpin) {
+        bool editable = isTestMode();
+        m_cameraXSpin->setReadOnly(!editable);
+        m_cameraYSpin->setReadOnly(!editable);
+        m_cameraZSpin->setReadOnly(!editable);
+        m_cameraDegSpin->setReadOnly(!editable);
     }
     
     // 根据模式更新按钮状态

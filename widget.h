@@ -224,7 +224,7 @@ private:
     
     // WMS测试功能
     void testWmsReport();  // 测试WMS上报功能
-    void reportFailureToWms(const QString &reason);  // 失败时上报direction=0给WMS
+    void reportFailureToWms(const QString &reason);
 
 private:
     Ui::Widget *ui;

@@ -112,7 +112,7 @@ void WmsClient::reportResult(const ApiTypes::ScanResult &result)
     // request.setRawHeader("Authorization", "Bearer " + token.toUtf8());
 
     // 按照WMS接口格式构建JSON数组
-    // 接口7格式：数组，每个元素包含 x, y, z, angle
+    // 接口7格式：数组，每个元素包含 x, y, z, direction, angle
     QJsonArray dataArray;
     for (const auto &point : result.data) {
         if (point.flag) {  // 只上报有效坐标
@@ -121,6 +121,7 @@ void WmsClient::reportResult(const ApiTypes::ScanResult &result)
             pointObj["x"] = qRound(point.x);
             pointObj["y"] = qRound(point.y);
             pointObj["z"] = qRound(point.z);
+            pointObj["direction"] = point.blockIndex;
             // angle: 角度（使用deg字段，转换为整数度）
             pointObj["angle"] = qRound(point.deg);
             dataArray.append(pointObj);
@@ -133,6 +134,7 @@ void WmsClient::reportResult(const ApiTypes::ScanResult &result)
         failObj["x"] = -1;
         failObj["y"] = -1;
         failObj["z"] = -1;
+        failObj["direction"] = -1;
         failObj["angle"] = -1;
         dataArray.append(failObj);
     }

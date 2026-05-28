@@ -48,10 +48,10 @@
 #include <QRegularExpression>
 
 // API模块
-#include "api/apiserver.h"
-#include "api/apiconfig.h"
-#include "api/wmsclient.h"
-#include "api/batchfinepositioningmanager.h"
+#include "apiserver.h"
+#include "apiconfig.h"
+#include "wmsclient.h"
+#include "batchfinepositioningmanager.h"
 #include <QNetworkInterface>
 #include <QHostAddress>
 #include <QAbstractSocket>
@@ -494,19 +494,24 @@ void Widget::setupConnections()
                     }
                 });
                 
-                // 2. 批量精定位流程：保存到对应铜垛索引
+                // 2. 批量精定位流程：保存到对应铜垛索引（相机1固定存储在index 0）
                 if (inFineFlow && m_currentFinePositioningBlockIndex >= 0) {
                     const int blockIdx = m_currentFinePositioningBlockIndex;
                     CameraCaptureArtifacts artifacts = m_cameraCaptureArtifacts.value(blockIdx);
-                    artifacts.images.append(img);
+                    // 确保images至少有2个槽位
+                    while (artifacts.images.size() < 2)
+                        artifacts.images.append(s_Image3dS());
+                    artifacts.images[0] = img;  // 相机1 → index 0
                     m_cameraCaptureArtifacts.insert(blockIdx, artifacts);
-                    
-                    // 如果已有两路数据，直接排队处理
-                    if (artifacts.images.size() >= 2) {
+
+                    // 如果两路数据都已就绪（Z图像非空），排队处理
+                    if (artifacts.images.size() >= 2
+                        && artifacts.images[0].Z.IsInitialized()
+                        && artifacts.images[1].Z.IsInitialized()) {
                         enqueueFinePositioningTask(blockIdx);
                     }
                 }
-                
+
                 // 3. 手动拍照模式：如果两个相机都完成，从内存触发算法（不等待落盘，与落盘并行）
                 if (m_waitingManualDualShot) {
                     tryStartManualDualCameraAlgorithmMemory();
@@ -556,19 +561,24 @@ void Widget::setupConnections()
                     }
                 });
                 
-                // 2. 批量精定位流程：保存到对应铜垛索引
+                // 2. 批量精定位流程：保存到对应铜垛索引（相机2固定存储在index 1）
                 if (inFineFlow && m_currentFinePositioningBlockIndex >= 0) {
                     const int blockIdx = m_currentFinePositioningBlockIndex;
                     CameraCaptureArtifacts artifacts = m_cameraCaptureArtifacts.value(blockIdx);
-                    artifacts.images.append(img);
+                    // 确保images至少有2个槽位
+                    while (artifacts.images.size() < 2)
+                        artifacts.images.append(s_Image3dS());
+                    artifacts.images[1] = img;  // 相机2 → index 1
                     m_cameraCaptureArtifacts.insert(blockIdx, artifacts);
-                    
-                    // 如果已有两路数据，直接排队处理
-                    if (artifacts.images.size() >= 2) {
+
+                    // 如果两路数据都已就绪（Z图像非空），排队处理
+                    if (artifacts.images.size() >= 2
+                        && artifacts.images[0].Z.IsInitialized()
+                        && artifacts.images[1].Z.IsInitialized()) {
                         enqueueFinePositioningTask(blockIdx);
                     }
                 }
-                
+
                 // 3. 手动拍照模式：如果两个相机都完成，从内存触发算法（不等待落盘，与落盘并行）
                 if (m_waitingManualDualShot) {
                     tryStartManualDualCameraAlgorithmMemory();
@@ -2537,11 +2547,14 @@ void Widget::reportFailureToWms(const QString &reason)
     failPoint.hasDeg = true;
     failPoint.flag = true;
     failPoint.pointType = QStringLiteral("grabPose");
-    failPoint.blockIndex = 0;
+    failPoint.blockIndex = -1;
     scanResult.data.append(failPoint);
 
     reportScanResultToWms(scanResult);
 }
+
+QString Widget::resolveProjectRootPath() const
+{
     if (!m_cachedProjectRootPath.isEmpty()) {
         return m_cachedProjectRootPath;
     }

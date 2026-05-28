@@ -2,6 +2,7 @@
     <qresource prefix="/image">
         <file>image/logo.ico</file>
         <file>image/logo.png</file>
+        <file alias="YRK.ico">../image/YRK.ico</file>
     </qresource>
 </RCC>
 

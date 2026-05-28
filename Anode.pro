@@ -20,14 +20,7 @@ INCLUDEPATH += \
     $$PWD/include/halconc \
     $$PWD/include/halconcpp \
     $$SICK_SDK_PATH/include \
-    $$PWD/src/app \
-    $$PWD/src/algorithm \
-    $$PWD/src/devices/camera \
-    $$PWD/src/devices/radar \
-    $$PWD/src/devices/plc \
-    $$PWD/src/visualization \
-    $$PWD/src/api \
-    $$PWD/src/utils
+    $$PWD
 
 # 定义库文件路径
 LIBS += -L$$HALCON_SDK_PATH
@@ -64,8 +57,9 @@ DEFINES += _CRT_SECURE_NO_WARNINGS
 msvc {
     # Visual Studio编译器设置
     QMAKE_CXXFLAGS += /bigobj
-    QMAKE_CXXFLAGS += /MP
-    
+    QMAKE_CXXFLAGS += /MP2
+    QMAKE_CXXFLAGS += /Zm200
+
     # 禁用一些警告
     QMAKE_CXXFLAGS += /wd4251
     QMAKE_CXXFLAGS += /wd4275
@@ -78,59 +72,65 @@ msvc {
 
 # 源文件
 SOURCES += \
-    src/app/main.cpp \
-    src/app/widget.cpp \
-    src/app/parametersettingsdialog.cpp \
-    src/algorithm/anodealgorithmworker.cpp \
-    src/algorithm/CUnloadPlateA.cpp \
-    src/algorithm/CHVisionAdvX.cpp \
-    src/devices/camera/phoxicontroller.cpp \
-    src/devices/camera/CPhoxiCamera.cpp \
-    src/devices/camera/camerawidget.cpp \
-    src/devices/camera/cameratestdialog.cpp \
-    src/devices/radar/radarcontroller.cpp \
-    src/visualization/heatmapgenerator.cpp \
-    src/visualization/heatmapwidget.cpp \
-    src/visualization/heatmapcontroldialog.cpp \
-    src/api/apiserver.cpp \
-    src/api/wmsclient.cpp \
-    src/api/batchfinepositioningmanager.cpp \
-    src/utils/imageutils.cpp
+    main.cpp \
+    widget.cpp \
+    parametersettingsdialog.cpp \
+    anodealgorithmworker.cpp \
+    CUnloadPlateA.cpp \
+    CHVisionAdvX.cpp \
+    phoxicontroller.cpp \
+    CPhoxiCamera.cpp \
+    camerawidget.cpp \
+    cameratestdialog.cpp \
+    cameracontroldialog.cpp \
+    radarcontroller.cpp \
+    heatmapgenerator.cpp \
+    heatmapwidget.cpp \
+    heatmapcontroldialog.cpp \
+    apiserver.cpp \
+    wmsclient.cpp \
+    batchfinepositioningmanager.cpp \
+    imageutils.cpp
 
 # 测试程序（可选）
 # SOURCES += test_heatmap.cpp
 
 # 头文件
 HEADERS += \
-    src/app/widget.h \
-    src/app/parametersettingsdialog.h \
-    src/algorithm/anodealgorithmworker.h \
-    src/algorithm/CUnloadPlateA.h \
-    src/algorithm/CHVisionAdvX.h \
-    src/algorithm/DataX.h \
-    src/devices/camera/phoxicontroller.h \
-    src/devices/camera/CPhoxiCamera.h \
-    src/devices/camera/camerawidget.h \
-    src/devices/camera/cameratestdialog.h \
-    src/devices/radar/radarcontroller.h \
-    src/visualization/heatmapgenerator.h \
-    src/visualization/heatmapwidget.h \
-    src/visualization/heatmapcontroldialog.h \
-    src/api/apiserver.h \
-    src/api/apitypes.h \
-    src/api/apiconfig.h \
-    src/api/wmsclient.h \
-    src/api/batchfinepositioningmanager.h \
-    src/utils/imageutils.h
+    widget.h \
+    parametersettingsdialog.h \
+    anodealgorithmworker.h \
+    CUnloadPlateA.h \
+    CHVisionAdvX.h \
+    DataX.h \
+    phoxicontroller.h \
+    CPhoxiCamera.h \
+    camerawidget.h \
+    cameratestdialog.h \
+    cameracontroldialog.h \
+    radarcontroller.h \
+    heatmapgenerator.h \
+    heatmapwidget.h \
+    heatmapcontroldialog.h \
+    apiserver.h \
+    apitypes.h \
+    apiconfig.h \
+    wmsclient.h \
+    batchfinepositioningmanager.h \
+    imageutils.h
 
 # 资源文件
 RESOURCES += \
     resources/images.qrc
 
+# Windows应用程序图标（资源管理器/任务栏显示）
+RC_ICONS = image/YRK.ico
+
 # UI文件
 FORMS += \
-    src/app/widget.ui \
-    src/app/parametersettingsdialog.ui
+    widget.ui \
+    parametersettingsdialog.ui \
+    cameracontroldialog.ui
 
 # 运行时库文件复制
 win32 {

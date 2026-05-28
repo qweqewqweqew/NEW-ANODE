@@ -1,0 +1,1186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1400</width>
+    <height>1026</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>青海阳极卸车识别系统 - 热力图与相机监控</string>
+  </property>
+  <layout class="QHBoxLayout" name="mainLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QFrame" name="leftControlPanel">
+     <property name="minimumSize">
+      <size>
+       <width>220</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>220</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QFrame#leftControlPanel {
+    background-color: #2C3E50;
+    border-right: 2px solid #34495E;
+}
+
+QLabel {
+    color: white;
+}
+
+QPushButton {
+    background-color: #34495E;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+    padding-left: 15px;
+}
+
+QPushButton:hover {
+    background-color: #3E5770;
+}
+
+QPushButton:pressed {
+    background-color: #2C3E50;
+}
+
+QPushButton:disabled {
+    background-color: #4A5A6A;
+    color: #95A5A6;
+}
+
+QGroupBox {
+    color: white;
+    border: 1px solid #34495E;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+QGroupBox::title {
+    color: #ECF0F1;
+    subcontrol-origin: margin;
+    left: 10px;
+    padding: 0 5px;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="leftPanelLayout">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="topMargin">
+       <number>15</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
+       <number>15</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="operationModeBtn">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #E74C3C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+}
+QPushButton:hover {
+    background-color: #C0392B;
+}
+QPushButton:pressed {
+    background-color: #A93226;
+}</string>
+        </property>
+        <property name="text">
+         <string>测试模式</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="styleSheet">
+         <string notr="true">background-color: #34495E;</string>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="cameraPositionGroup">
+        <property name="title">
+         <string>相机拍照位</string>
+        </property>
+        <layout class="QVBoxLayout" name="cameraPositionLayout">
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <item>
+          <layout class="QHBoxLayout" name="cameraXLayout">
+           <item>
+            <widget class="QLabel" name="cameraXLabel">
+             <property name="minimumSize">
+              <size>
+               <width>50</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: #ECF0F1;
+font-size: 11px;</string>
+             </property>
+             <property name="text">
+              <string>X:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="cameraXSpin">
+             <property name="styleSheet">
+              <string notr="true">QDoubleSpinBox {
+    background-color: #455A64;
+    color: white;
+    border: 1px solid #607D8B;
+    border-radius: 3px;
+    padding: 3px;
+    font-size: 11px;
+}
+QDoubleSpinBox:focus {
+    border: 1px solid #78909C;
+}</string>
+             </property>
+             <property name="decimals">
+              <number>1</number>
+             </property>
+             <property name="minimum">
+              <double>-999999.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>999999.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>0.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="cameraYLayout">
+           <item>
+            <widget class="QLabel" name="cameraYLabel">
+             <property name="minimumSize">
+              <size>
+               <width>50</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: #ECF0F1;
+font-size: 11px;</string>
+             </property>
+             <property name="text">
+              <string>Y:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="cameraYSpin">
+             <property name="styleSheet">
+              <string notr="true">QDoubleSpinBox {
+    background-color: #455A64;
+    color: white;
+    border: 1px solid #607D8B;
+    border-radius: 3px;
+    padding: 3px;
+    font-size: 11px;
+}
+QDoubleSpinBox:focus {
+    border: 1px solid #78909C;
+}</string>
+             </property>
+             <property name="decimals">
+              <number>1</number>
+             </property>
+             <property name="minimum">
+              <double>-999999.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>999999.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>0.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="cameraZLayout">
+           <item>
+            <widget class="QLabel" name="cameraZLabel">
+             <property name="minimumSize">
+              <size>
+               <width>50</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: #ECF0F1;
+font-size: 11px;</string>
+             </property>
+             <property name="text">
+              <string>Z:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="cameraZSpin">
+             <property name="styleSheet">
+              <string notr="true">QDoubleSpinBox {
+    background-color: #455A64;
+    color: white;
+    border: 1px solid #607D8B;
+    border-radius: 3px;
+    padding: 3px;
+    font-size: 11px;
+}
+QDoubleSpinBox:focus {
+    border: 1px solid #78909C;
+}</string>
+             </property>
+             <property name="decimals">
+              <number>1</number>
+             </property>
+             <property name="minimum">
+              <double>-999999.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>999999.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>0.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="cameraDegLayout">
+           <property name="spacing">
+            <number>40</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="cameraDegLabel">
+             <property name="minimumSize">
+              <size>
+               <width>50</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: #ECF0F1;
+font-size: 11px;</string>
+             </property>
+             <property name="text">
+              <string>Deg:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="cameraDegSpin">
+             <property name="styleSheet">
+              <string notr="true">QDoubleSpinBox {
+    background-color: #455A64;
+    color: white;
+    border: 1px solid #607D8B;
+    border-radius: 3px;
+    padding: 3px;
+    font-size: 11px;
+}
+QDoubleSpinBox:focus {
+    border: 1px solid #78909C;
+}</string>
+             </property>
+             <property name="decimals">
+              <number>3</number>
+             </property>
+             <property name="minimum">
+              <double>-999999.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>999999.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>0.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="controlGroup">
+        <property name="title">
+         <string>设备控制</string>
+        </property>
+        <layout class="QVBoxLayout" name="controlGroupLayout">
+         <property name="spacing">
+          <number>8</number>
+         </property>
+         <item>
+          <layout class="QHBoxLayout" name="deviceConnectLayout">
+           <item>
+            <widget class="QPushButton" name="cameraConnectBtn">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    background-color: #607D8B;
+    font-size: 11px;
+    text-align: center;
+}
+QPushButton:hover {
+    background-color: #455A64;
+}
+QPushButton:pressed {
+    background-color: #37474F;
+}
+QPushButton:disabled {
+    background-color: #78909C;
+    color: #B0BEC5;
+}</string>
+             </property>
+             <property name="text">
+              <string>连接相机</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="radarConnectBtn">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    background-color: #607D8B;
+    font-size: 11px;
+    text-align: center;
+}
+QPushButton:hover {
+    background-color: #455A64;
+}
+QPushButton:pressed {
+    background-color: #37474F;
+}</string>
+             </property>
+             <property name="text">
+              <string>连接雷达</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="parameterSettingsBtn">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #607D8B;
+    color: white;
+    font-size: 11px;
+    text-align: center;
+}
+QPushButton:hover {
+    background-color: #455A64;
+}
+QPushButton:pressed {
+    background-color: #37474F;
+}</string>
+           </property>
+           <property name="text">
+            <string>参数设置</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="uploadRadarFileBtn">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+	background-color: #607D8B;
+    color: white;
+    font-size: 11px;
+    text-align: center;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color:  #455A64;
+}
+QPushButton:pressed {
+    background-color: #37474F;
+}</string>
+           </property>
+           <property name="text">
+            <string>雷达测试</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="testCameraAlgorithmBtn">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #607D8B;
+    color: white;
+    font-size: 11px;
+    text-align: center;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #455A64;
+}
+QPushButton:pressed {
+    background-color: #37474F;
+}
+QPushButton:disabled {
+    background-color: #78909C;
+    color: #B0BEC5;
+}</string>
+           </property>
+           <property name="text">
+            <string>相机测试</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="interfaceTestBtn">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #607D8B;
+    color: white;
+    font-size: 11px;
+    text-align: center;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #455A64;
+}
+QPushButton:pressed {
+    background-color: #37474F;
+}
+QPushButton:disabled {
+    background-color: #78909C;
+    color: #B0BEC5;
+}</string>
+           </property>
+           <property name="text">
+            <string>接口测试</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="radarControlGroup">
+        <property name="title">
+         <string>雷达参数</string>
+        </property>
+        <layout class="QVBoxLayout" name="radarControlLayout">
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="radarParamLabel">
+           <property name="styleSheet">
+            <string notr="true">color: #BDC3C7;
+font-size: 10px;
+padding: 3px 0;</string>
+           </property>
+           <property name="text">
+            <string>扫描参数</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="startAngleLayout">
+           <item>
+            <widget class="QLabel" name="radarStartAngleLabel">
+             <property name="minimumSize">
+              <size>
+               <width>65</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: #ECF0F1;
+font-size: 11px;</string>
+             </property>
+             <property name="text">
+              <string>起始角度:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="radarStartAngleSpin">
+             <property name="styleSheet">
+              <string notr="true">QDoubleSpinBox {
+    background-color: #455A64;
+    color: white;
+    border: 1px solid #607D8B;
+    border-radius: 3px;
+    padding: 3px;
+    font-size: 11px;
+}
+QDoubleSpinBox:focus {
+    border: 1px solid #78909C;
+}</string>
+             </property>
+             <property name="suffix">
+              <string>°</string>
+             </property>
+             <property name="decimals">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <double>360.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>85.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="stopAngleLayout">
+           <item>
+            <widget class="QLabel" name="radarStopAngleLabel">
+             <property name="minimumSize">
+              <size>
+               <width>65</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: #ECF0F1;
+font-size: 11px;</string>
+             </property>
+             <property name="text">
+              <string>结束角度:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="radarStopAngleSpin">
+             <property name="styleSheet">
+              <string notr="true">QDoubleSpinBox {
+    background-color: #455A64;
+    color: white;
+    border: 1px solid #607D8B;
+    border-radius: 3px;
+    padding: 3px;
+    font-size: 11px;
+}
+QDoubleSpinBox:focus {
+    border: 1px solid #78909C;
+}</string>
+             </property>
+             <property name="suffix">
+              <string>°</string>
+             </property>
+             <property name="decimals">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <double>360.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>115.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="velocityLayout">
+           <item>
+            <widget class="QLabel" name="radarVelocityLabel">
+             <property name="minimumSize">
+              <size>
+               <width>65</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: #ECF0F1;
+font-size: 11px;</string>
+             </property>
+             <property name="text">
+              <string>扫描速度:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="radarVelocitySpin">
+             <property name="styleSheet">
+              <string notr="true">QDoubleSpinBox {
+    background-color: #455A64;
+    color: white;
+    border: 1px solid #607D8B;
+    border-radius: 3px;
+    padding: 3px;
+    font-size: 11px;
+}
+QDoubleSpinBox:focus {
+    border: 1px solid #78909C;
+}</string>
+             </property>
+             <property name="suffix">
+              <string> °/s</string>
+             </property>
+             <property name="decimals">
+              <number>1</number>
+             </property>
+             <property name="minimum">
+              <double>0.100000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>50.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>2.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="radarActionLayout">
+           <item>
+            <widget class="QPushButton" name="radarSetParamsBtn">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    background-color: #607D8B;
+    font-size: 11px;
+}
+QPushButton:hover {
+    background-color: #455A64;
+}
+QPushButton:pressed {
+    background-color: #37474F;
+}
+QPushButton:disabled {
+    background-color: #78909C;
+    color: #B0BEC5;
+}</string>
+             </property>
+             <property name="text">
+              <string>设置参数</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="radarInitZeroBtn">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    background-color: #607D8B;
+    font-size: 11px;
+}
+QPushButton:hover {
+    background-color: #455A64;
+}
+QPushButton:pressed {
+    background-color: #37474F;
+}
+QPushButton:disabled {
+    background-color: #78909C;
+    color: #B0BEC5;
+}</string>
+             </property>
+             <property name="text">
+              <string>回到零点</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="radarScanDetectBtn">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #607D8B;
+    font-size: 11px;
+}
+QPushButton:hover {
+    background-color: #455A64;
+}
+QPushButton:pressed {
+    background-color: #37474F;
+}
+QPushButton:disabled {
+    background-color: #78909C;
+    color: #B0BEC5;
+}</string>
+           </property>
+           <property name="text">
+            <string>扫描并检测</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cameraTriggerBtn">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>32</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #607D8B;
+    font-size: 11px;
+}
+QPushButton:hover {
+    background-color: #455A64;
+}
+QPushButton:pressed {
+    background-color: #37474F;
+}
+QPushButton:disabled {
+    background-color: #78909C;
+    color: #B0BEC5;
+}</string>
+           </property>
+           <property name="text">
+            <string>相机拍照</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="logGroup">
+        <property name="title">
+         <string>系统日志</string>
+        </property>
+        <layout class="QVBoxLayout" name="logGroupLayout">
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <item>
+          <widget class="QTextEdit" name="logTextEdit">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>150</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>300</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QTextEdit {
+    background-color: #1C2833;
+    color: #ECF0F1;
+    border: 1px solid #34495E;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 11px;
+    padding: 5px;
+}
+
+QScrollBar:vertical {
+    background: #2C3E50;
+    width: 10px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background: #34495E;
+    min-height: 20px;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #4A5A6A;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}</string>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="placeholderText">
+            <string>系统日志将显示在这里...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="logButtonLayout">
+           <property name="spacing">
+            <number>5</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="clearLogBtn">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    background-color: #607D8B;
+    font-size: 11px;
+    padding: 5px;
+}
+QPushButton:hover {
+    background-color: #455A64;
+}
+QPushButton:pressed {
+    background-color: #37474F;
+}</string>
+             </property>
+             <property name="text">
+              <string>清除</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="saveLogBtn">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    background-color: #607D8B;
+    font-size: 11px;
+    padding: 5px;
+}
+QPushButton:hover {
+    background-color: #455A64;
+}
+QPushButton:pressed {
+    background-color: #37474F;
+}</string>
+             </property>
+             <property name="text">
+              <string> 保存</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="rightContentLayout">
+     <property name="spacing">
+      <number>5</number>
+     </property>
+     <item>
+      <layout class="QHBoxLayout" name="contentLayout">
+       <property name="spacing">
+        <number>5</number>
+       </property>
+       <item>
+        <widget class="QGroupBox" name="heatmapGroup">
+         <property name="styleSheet">
+          <string notr="true">QGroupBox {
+    border: 2px solid #BDC3C7;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 10px;
+    padding: 0 5px;
+}</string>
+         </property>
+         <property name="title">
+          <string>点云图像</string>
+         </property>
+         <layout class="QVBoxLayout" name="heatmapLayout">
+          <item>
+           <widget class="QWidget" name="heatmapContainer" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>500</width>
+              <height>400</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: black;</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="camerasPanelLayout">
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <item>
+          <widget class="QGroupBox" name="camera1Group">
+           <property name="styleSheet">
+            <string notr="true">QGroupBox {
+    border: 2px solid #BDC3C7;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 10px;
+    padding: 0 5px;
+}</string>
+           </property>
+           <property name="title">
+            <string>相机1</string>
+           </property>
+           <layout class="QVBoxLayout" name="camera1Layout">
+            <item>
+             <widget class="QWidget" name="camera1Container" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>400</width>
+                <height>400</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: #34495E;</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="camera2Group">
+           <property name="styleSheet">
+            <string notr="true">QGroupBox {
+    border: 2px solid #BDC3C7;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 10px;
+    padding: 0 5px;
+}</string>
+           </property>
+           <property name="title">
+            <string>相机2</string>
+           </property>
+           <layout class="QVBoxLayout" name="camera2Layout">
+            <item>
+             <widget class="QWidget" name="camera2Container" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>400</width>
+                <height>400</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: #34495E;</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QWidget" name="statusBarWidget" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QWidget {
+    background-color: #34495E;
+    border-top: 1px solid #2C3E50;
+}
+
+QLabel {
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+}</string>
+       </property>
+       <layout class="QHBoxLayout" name="statusBarLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
